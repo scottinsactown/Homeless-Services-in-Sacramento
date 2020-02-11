@@ -1,0 +1,33 @@
+Destination_Code,Exit_Destination
+4,Client doesn't know
+4,Client refused
+4,Data not collected
+5,Deceased
+2,"Emergency shelter, including hotel or motel paid for with emergency shelter voucher, or RHY-funded Host Home shelter"
+6,Foster care home or foster care group home
+6,Hospital or other residential non-psychiatric medical facility
+2,Hotel or motel paid for without emergency shelter voucher
+6,"Jail, prison or juvenile detention facility"
+6,Long-term care facility or nursing home
+1,Moved from one HOPWA  funded project to HOPWA Permanent Housing
+2,Moved from one HOPWA funded project to HOPWA Transitional housing
+4,No exit interview completed
+4,Other
+1,"Owned by client, no ongoing housing subsidy"
+1,"Owned by client, with ongoing housing subsidy"
+1,Permanent housing (other than RRH) for formerly homeless persons
+3,"Place not meant for habitation (e.g., a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)"
+6,Psychiatric hospital or other psychiatric facility
+1,"Rental by client, no ongoing housing subsidy"
+1,"Rental by client, with GPD TIP housing subsidy"
+1,"Rental by client, with other ongoing housing subsidy"
+1,"Rental by client, with RRH or equivalent subsidy"
+1,"Rental by client, with VASH housing subsidy"
+1,Residential project or halfway house with no homeless criteria
+2,Safe Haven
+1,"Staying or living with family, permanent tenure"
+2,"Staying or living with family, temporary tenure (e.g. room, apartment or house)"
+1,"Staying or living with friends, permanent tenure"
+2,"Staying or living with friends, temporary tenure (e.g. room, apartment or house)"
+6,Substance abuse treatment facility or detox center
+2,Transitional housing for homeless persons (including homeless youth)

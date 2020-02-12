@@ -27,7 +27,14 @@ def get_data():
                    'monthly':{'in':{},
                              'out':{},
                              'active':{}},
-                   'top_5':{}}}
+                   'top_5':{}},
+                 'outcomes':{'yearly':{'exit_ph':{},
+                                 'exit_all':{}
+                                 ,'average':{}
+                                 },
+                       'monthly':{'exit_ph':{},
+                                'exit_all':{}}}  
+                }
 
     with engine.connect() as c:
         rs = c.execute('Select * from yearly_in')
@@ -51,9 +58,22 @@ def get_data():
         rs = c.execute('Select * from top_5_programs')
         for r in rs:
             response['flow']['top_5'][r[0]] = [r[1], r[2]]
+        rs = c.execute('Select * from yearly_to_ph')
+        for r in rs:
+            response['outcomes']['yearly']['exit_ph'][r[0]] = r[1]
+        rs = c.execute('Select * from yearly_total_exit')
+        for r in rs:
+            response['outcomes']['yearly']['exit_all'][r[0]] = r[1]
+        rs = c.execute('Select * from avg_to_ph')
+        for r in rs:
+            response['outcomes']['yearly']['average'][r[0]] = int(r[1])
+        rs = c.execute('Select * from num_to_ph')
+        for r in rs: 
+            response['outcomes']['monthly']['exit_ph'][r[0]] = r[1]
+        rs = c.execute('Select * from num_to_ph')
+        for r in rs: 
+            response['outcomes']['monthly']['exit_all'][r[0]] = r[2]
     return jsonify(response)
-
-# Outcome data
 
 # Demographic data
 

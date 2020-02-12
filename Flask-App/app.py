@@ -27,13 +27,32 @@ def get_data():
                    'monthly':{'in':{},
                              'out':{},
                              'active':{}},
-                   'top_5':{}},
+                   'top_5':{'2015':[],
+                            '2016':[],
+                            '2017':[],
+                            '2018':[],
+                            '2019':[]}},
                  'outcomes':{'yearly':{'exit_ph':{},
                                  'exit_all':{}
                                  ,'average':{}
                                  },
                        'monthly':{'exit_ph':{},
-                                'exit_all':{}}}  
+                                'exit_all':{}}},
+            'demo':{'age':{'2015':[],
+                            '2016':[],
+                            '2017':[],
+                            '2018':[],
+                            '2019':[]},
+                   'race':{'2015':[],
+                            '2016':[],
+                            '2017':[],
+                            '2018':[],
+                            '2019':[]},
+                   'sex':{'2015':[],
+                            '2016':[],
+                            '2017':[],
+                            '2018':[],
+                            '2019':[]}}
                 }
 
     with engine.connect() as c:
@@ -57,7 +76,8 @@ def get_data():
             response['flow']['monthly']['active'][r[0]] = r[1]+r[2]
         rs = c.execute('Select * from top_5_programs')
         for r in rs:
-            response['flow']['top_5'][r[0]] = [r[1], r[2]]
+            response['flow']['top_5'][r[0]].append([r[1], r[2]])
+
         rs = c.execute('Select * from yearly_to_ph')
         for r in rs:
             response['outcomes']['yearly']['exit_ph'][r[0]] = r[1]
@@ -73,7 +93,19 @@ def get_data():
         rs = c.execute('Select * from num_to_ph')
         for r in rs: 
             response['outcomes']['monthly']['exit_all'][r[0]] = r[2]
-    return jsonify(response)
+
+        rs = c.execute('Select * from yearly_age')
+        for r in rs:
+            response['demo']['age'][r[0]].append([r[1], r[2]])
+
+        rs = c.execute('Select * from yearly_race')
+        for r in rs:
+            response['demo']['race'][r[0]].append([r[1], r[2]])
+
+        rs = c.execute('Select * from yearly_gender')
+        for r in rs:
+            response['demo']['sex'][r[0]].append([r[1], r[2]])
+        return jsonify(response)
 
 # Demographic data
 

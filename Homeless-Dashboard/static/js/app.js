@@ -1,17 +1,38 @@
-
+var t0 = performance.now();
 var url = 'http://localhost:5000/api'
 d3.json(url, function(data) {
-    console.log(data);
+    console.log('Full Data: ', data);
     var flowData = data['flow'];
-    var phData = data['ph']
+    var outcomesData = data['outcomes']
     var demoData = data['demo']
     var filteredFlow = filterFlow('2018',flowData);
-    var filteredPH = filterPH('2018', phData);
+    var filteredOutcomes = filterOutcomes('2018', outcomesData);
     var filteredDemo = filterDemo('2018', demoData);
-    buildPage(filteredFlow, filteredPH, filteredDemo)
+    var yearlyData = unpackPage(data)
+    buildPage(filteredFlow, filteredOutcomes, filteredDemo, yearlyData);
+    console.log('2018 Filtered Data for PH row: ', filteredOutcomes);
+    console.log('2018 Filtered Data for in/out/exit row: ', filteredFlow);
+    console.log('2018 Filtered Data for Demo row: ', filteredDemo);
+    console.log('Full yearly data for page load yearly graphs: ', yearlyData);
+    var t1 = performance.now();
+    console.log("Call to get and log data took " + (t1 - t0) + " milliseconds.");
 });
 
+
+//function to unpack yearly data for page load yearly data graphs
+function unpackPage(responceData) {
+    var yearly = {}
+    yearly['years'] = Object.entries(responceData.flow.yearly.active).map(d => d[0]);
+    yearly['in'] = Object.entries(responceData.flow.yearly.active).map(d => d[1]);
+    yearly['out'] = Object.entries(responceData.flow.yearly.out).map(d => d[1]);
+    yearly['active'] = Object.entries(responceData.flow.yearly.active).map(d => d[1]);
+    yearly['monthlyOutcomes'] = {'exitAll':responceData.outcomes.monthly.exit_all,
+                                'exitPH': responceData.outcomes.monthly.exit_ph};
+    return yearly
+}
+
 // function to filter fowdata
+//returns object with all filtered data needed for flowdata row for selected year
 function filterFlow(year, flowData) {
     function monthlyDictFilter(d) {
         return (String(d).split('-')[0] === year)
@@ -25,27 +46,60 @@ function filterFlow(year, flowData) {
     return filtered 
 }
 // function to filter ph data
-function filterPH() {
+function filterOutcomes(year, outcomesData) {
+    function monthlyDictFilter(d) {
+        return (String(d[0]).split('-')[0] === year)
+    }
+    var filtered = {}
+    // only need to filter card data for exit to PH filter,  will plot all lines and change "active" class when selected 
+    // to make the selected line stand out 
+    filtered['avgTimeToPH'] = Object.entries(outcomesData.yearly.average).filter(monthlyDictFilter).map(d => d[1]);
+    filtered['totalToPH'] = Object.entries(outcomesData.yearly.exit_ph).filter(monthlyDictFilter).map(d => d[1]);
+    filtered['totalExit'] = Object.entries(outcomesData.yearly.exit_all).filter(monthlyDictFilter).map(d => d[1])
 
+    return filtered 
 }
 
 
-function filterDemo() {
-
+function filterDemo(year, demoData) {
+    function monthlyDictFilter(d) {
+        return (String(d[0]).split('-')[0] === year)
+    }
+    var filtered = {}
+    filtered['age'] = Object.entries(demoData.age).filter(monthlyDictFilter).map(d => d[1]);
+    filtered['race'] = Object.entries(demoData.race).filter(monthlyDictFilter).map(d => d[1]);
+    filtered['gender'] = Object.entries(demoData.sex).filter(monthlyDictFilter).map(d => d[1]);
+    return filtered 
 }
 //function to build graphs fill cards
 // will take filtered objects with flow, ph, demo data for given year
-function buildPage(flow, ph, demo){
-    
-    //will use update functions to build rows
+function buildPage(flow, outcomes, demo, yearlyData){
+   
+    // code to buld the graphs that have static data(yearly outcomes, yearly flow)
+    // object variable to separate out yearly outcome data
+    var monthlyOutcomesgraph = {}
+    yearlyData.years.forEach(function(year) {
+        function monthlyDictFilter(d) {
+            return (String(d[0]).split('-')[0] === year)
+        }
+        monthlyOutcomesgraph[year] = {
+            'exitAll': Object.entries(yearlyData.monthlyOutcomes.exitAll).filter(monthlyDictFilter).map(d => d[1]),
+            'exitPH': Object.entries(yearlyData.monthlyOutcomes.exitAll).filter(monthlyDictFilter).map(d => d[1])
+        }
+    });
+    console.log('Data For Page Load Graphs : ', monthlyOutcomesgraph)
+
+    //will use update functions to build responsive part of rows
     updateFlow(flow);
-    updatePH(ph);
+    updateOutcomes(outcomes);
     updateDemo(demo);
 }
+
 // function to update flow of in/out/exit row 
 // flow will be dictionary of all data needed for this row filtered to year
-function updateFlow(flow) {
+function updateFlow(flow, year) {
     // code for graphs 
+    // will just be changing the css class to "active"/"inactive" for yearly chart
 
 
     //code for cards
@@ -53,25 +107,27 @@ function updateFlow(flow) {
 
 //function to update exit to PH row
 // ph is dictionary of filtered data for exit to ph row 
-function updatePH(ph) {
+function updateOutcomes(outcomes, year) {
     // code for graphs
 
     //code for cards
 }
 
-function updateDemo(demo) {
+function updateDemo(demo,year) {
     //code for graphs
 
     // code for cards
 }
 
+// function attached to event listener in html for when the option 
+// in drop down box changes 
 function optionChanged(value) {
     var filteredFlow = filterFlow(value,flowData);
-    var filteredPH = filterPH(value, phData);
+    var filteredOutcomes = filterOutcomes(value, phData);
     var filteredDemo = filterDemo(value, demoData);
-    updateFlow(filteredFlow);
-    updatePH(filteredPH);
-    updateDemo(filteredDemo);
+    updateFlow(filteredFlow, value);
+    updateOutcomes(filteredOutcomes, value);
+    updateDemo(filteredDemo, value);
 }
 
 

@@ -20,14 +20,15 @@ d3.json(url, function(data) {
 
 
 //function to unpack yearly data for page load yearly data graphs
-function unpackPage(responceData) {
+function unpackPage(responseData) {
     var yearly = {}
-    yearly['years'] = Object.entries(responceData.flow.yearly.active).map(d => d[0]);
-    yearly['in'] = Object.entries(responceData.flow.yearly.active).map(d => d[1]);
-    yearly['out'] = Object.entries(responceData.flow.yearly.out).map(d => d[1]);
-    yearly['active'] = Object.entries(responceData.flow.yearly.active).map(d => d[1]);
-    yearly['monthlyOutcomes'] = {'exitAll':responceData.outcomes.monthly.exit_all,
-                                'exitPH': responceData.outcomes.monthly.exit_ph};
+    yearly['years'] = Object.entries(responseData.flow.yearly.active).map(d => d[0]);
+    yearly['in'] = Object.entries(responseData.flow.yearly.active).map(d => d[1]);
+    yearly['out'] = Object.entries(responseData.flow.yearly.out).map(d => d[1]);
+    yearly['active'] = Object.entries(responseData.flow.yearly.active).map(d => d[1]);
+    yearly['monthlyOutcomes'] = {'exitAll':responseData.outcomes.monthly.exit_all,
+                                'exitPH': responseData.outcomes.monthly.exit_ph,
+                                'percentPHmo': responseData.outcomes.monthly.percent_ph};
     return yearly
 }
 
@@ -54,6 +55,7 @@ function filterOutcomes(year, outcomesData) {
     // only need to filter card data for exit to PH filter,  will plot all lines and change "active" class when selected 
     // to make the selected line stand out 
     filtered['avgTimeToPH'] = Object.entries(outcomesData.yearly.average).filter(monthlyDictFilter).map(d => d[1]);
+    filtered['percentPHyear'] = Object.entries(outcomesData.yearly.percent_ph).filter(monthlyDictFilter).map(d => d[1]);
     filtered['totalToPH'] = Object.entries(outcomesData.yearly.exit_ph).filter(monthlyDictFilter).map(d => d[1]);
     filtered['totalExit'] = Object.entries(outcomesData.yearly.exit_all).filter(monthlyDictFilter).map(d => d[1])
 
@@ -83,8 +85,9 @@ function buildPage(flow, outcomes, demo, yearlyData){
             return (String(d[0]).split('-')[0] === year)
         }
         monthlyOutcomesgraph[year] = {
+            'percentPHmo': Object.entries(yearlyData.monthlyOutcomes.percentPHmo).filter(monthlyDictFilter).map(d => d[1]),
             'exitAll': Object.entries(yearlyData.monthlyOutcomes.exitAll).filter(monthlyDictFilter).map(d => d[1]),
-            'exitPH': Object.entries(yearlyData.monthlyOutcomes.exitAll).filter(monthlyDictFilter).map(d => d[1])
+            'exitPH': Object.entries(yearlyData.monthlyOutcomes.exitPH).filter(monthlyDictFilter).map(d => d[1])
         }
     });
     console.log('Data For Page Load Exit to PH Graph : ', monthlyOutcomesgraph)

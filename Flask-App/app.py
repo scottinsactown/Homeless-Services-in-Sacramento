@@ -99,11 +99,13 @@ def get_data():
                                 '2019':[],
                             None:[]}},
                     'outcomes':{'yearly':{'exit_ph':{},
-                                    'exit_all':{}
-                                    ,'average':{}
+                                    'exit_all':{},
+                                    'average':{},
+                                    'percent_ph':{}
                                     },
                         'monthly':{'exit_ph':{},
-                                    'exit_all':{}}},
+                                    'exit_all':{},
+                                    'percent_ph':{}}},
                 'demo':{'age':{'2015':[],
                                 '2016':[],
                                 '2017':[],
@@ -133,6 +135,7 @@ def get_data():
             response['outcomes']['yearly']['exit_ph'][r[3]] = r[4]
             response['outcomes']['yearly']['average'][r[3]] = int(r[5])
             response['flow']['yearly']['active'][r[3]] = r[2]
+            response['outcomes']['yearly']['percent_ph'][r[3]]=int(r[6])
         rs = c.execute('Select * from monthly_flow')
         for r in rs:
             response['flow']['monthly']['in'][r[3]] = r[0]
@@ -140,6 +143,8 @@ def get_data():
             response['flow']['monthly']['out'][r[3]] = r[1]
             response['outcomes']['monthly']['exit_all'][r[3]] = r[1]
             response['outcomes']['monthly']['exit_ph'][r[3]] = r[4]
+            response['outcomes']['monthly']['percent_ph'][r[3]]=int(r[5])
+
         rs = c.execute('Select * from demographics')
         for r in rs:
             response['demo']['age'][r[8]].append([r[6],r[7]])

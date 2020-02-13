@@ -16,9 +16,16 @@ d3.json(url, function(data) {
     console.log('Full yearly data for page load yearly graphs: ', yearlyData);
     var t1 = performance.now();
     console.log("Call to get and log data took " + (t1 - t0) + " milliseconds.");
+
+    // NEW
+
+    //Fill drop down with year options
+    yearlyData.years.forEach(item => {
+        d3.select('#selDataset').append("option").text(item).attr("value", item)
+    });
 });
 
-
+ 
 //function to unpack yearly data for page load yearly data graphs
 function unpackPage(responseData) {
     var yearly = {}
@@ -125,12 +132,23 @@ function updateDemo(demo,year) {
 // function attached to event listener in html for when the option 
 // in drop down box changes 
 function optionChanged(value) {
-    var filteredFlow = filterFlow(value,flowData);
-    var filteredOutcomes = filterOutcomes(value, phData);
-    var filteredDemo = filterDemo(value, demoData);
+    d3.json(url, function(data) {
+        var flowData = data['flow'];
+        var outcomesData = data['outcomes']
+        var demoData = data['demo']
+        var filteredFlow = filterFlow(value,flowData);
+        var filteredOutcomes = filterOutcomes(value, outcomesData);
+        var filteredDemo = filterDemo(value, demoData);
+        console.log(value + ' Filtered Data for PH row: ', filteredOutcomes);
+        console.log(value + ' Filtered Data for in/out/exit row: ', filteredFlow);
+        console.log(value + ' Filtered Data for Demo row: ', filteredDemo);
+
+
+
     updateFlow(filteredFlow, value);
     updateOutcomes(filteredOutcomes, value);
     updateDemo(filteredDemo, value);
+    });
 }
 
 

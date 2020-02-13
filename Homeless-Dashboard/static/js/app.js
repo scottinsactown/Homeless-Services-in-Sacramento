@@ -60,7 +60,7 @@ function filterOutcomes(year, outcomesData) {
     return filtered 
 }
 
-
+// function to filter demographic data based on input year 
 function filterDemo(year, demoData) {
     function monthlyDictFilter(d) {
         return (String(d[0]).split('-')[0] === year)
@@ -87,7 +87,7 @@ function buildPage(flow, outcomes, demo, yearlyData){
             'exitPH': Object.entries(yearlyData.monthlyOutcomes.exitAll).filter(monthlyDictFilter).map(d => d[1])
         }
     });
-    console.log('Data For Page Load Graphs : ', monthlyOutcomesgraph)
+    console.log('Data For Page Load Exit to PH Graph : ', monthlyOutcomesgraph)
 
     //will use update functions to build responsive part of rows
     updateFlow(flow);

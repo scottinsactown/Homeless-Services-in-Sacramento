@@ -3,10 +3,9 @@
 from flask import Flask, jsonify
 from flask_cors import CORS 
 from sqlalchemy import create_engine
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from config import username, password
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
+
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
@@ -56,44 +55,25 @@ def get_data():
                 }
 
     with engine.connect() as c:
-        rs = c.execute('Select * from yearly_in')
+        rs = c.execute('Select * from yearly_flow')
         for r in rs:
-            response['flow']['yearly']['in'][r[0]] = r[1]
-        rs = c.execute('Select * from yearly_out')
+            response['flow']['yearly']['in'][r[3]] = r[0]
+            response['flow']['yearly']['out'][r[3]] = r[1]
+            response['outcomes']['yearly']['exit_all'][r[3]] = r[1]
+            response['outcomes']['yearly']['exit_ph'][r[3]] = r[4]
+            response['outcomes']['yearly']['average'][r[3]] = int(r[5])
+            response['flow']['yearly']['active'][r[3]] = r[2]
+        rs = c.execute('Select * from monthly_flow')
         for r in rs:
-            response['flow']['yearly']['out'][r[0]] = r[1]
-        rs = c.execute('Select * from monthly_in')
-        for r in rs:
-            response['flow']['monthly']['in'][r[0]] = r[1]
-        rs = c.execute('Select * from monthly_out')
-        for r in rs:
-            response['flow']['monthly']['out'][r[0]] = r[1]
-        rs = c.execute('Select * from num_active_yearly')
-        for r in rs:
-            response['flow']['yearly']['active'][r[0]] = r[1]+r[2]
-        rs = c.execute('Select * from num_active_monthly')
-        for r in rs:
-            response['flow']['monthly']['active'][r[0]] = r[1]+r[2]
+            response['flow']['monthly']['in'][r[3]] = r[0]
+            response['flow']['monthly']['active'][r[3]] = r[2]
+            response['flow']['monthly']['out'][r[3]] = r[1]
+            response['outcomes']['monthly']['exit_all'][r[3]] = r[1]
+            response['outcomes']['monthly']['exit_ph'][r[3]] = r[4]
+
         rs = c.execute('Select * from top_5_programs')
         for r in rs:
             response['flow']['top_5'][r[0]].append([r[1], r[2]])
-
-        rs = c.execute('Select * from yearly_to_ph')
-        for r in rs:
-            response['outcomes']['yearly']['exit_ph'][r[0]] = r[1]
-        rs = c.execute('Select * from yearly_total_exit')
-        for r in rs:
-            response['outcomes']['yearly']['exit_all'][r[0]] = r[1]
-        rs = c.execute('Select * from avg_to_ph')
-        for r in rs:
-            response['outcomes']['yearly']['average'][r[0]] = int(r[1])
-        rs = c.execute('Select * from num_to_ph')
-        for r in rs: 
-            response['outcomes']['monthly']['exit_ph'][r[0]] = r[1]
-        rs = c.execute('Select * from num_to_ph')
-        for r in rs: 
-            response['outcomes']['monthly']['exit_all'][r[0]] = r[2]
-
         rs = c.execute('Select * from yearly_age')
         for r in rs:
             response['demo']['age'][r[0]].append([r[1], r[2]])
@@ -105,7 +85,9 @@ def get_data():
         rs = c.execute('Select * from yearly_gender')
         for r in rs:
             response['demo']['sex'][r[0]].append([r[1], r[2]])
-        return jsonify(response)
+
+    
+    return jsonify(response)
 
 # Demographic data
 

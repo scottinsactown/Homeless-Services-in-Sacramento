@@ -9,6 +9,7 @@ d3.json(url, function(data) {
     var filteredOutcomes = filterOutcomes('2018', outcomesData);
     var filteredDemo = filterDemo('2018', demoData);
     var yearlyData = unpackPage(data)
+
     buildPage(filteredFlow, filteredOutcomes, filteredDemo, yearlyData);
     console.log('2018 Filtered Data for PH row: ', filteredOutcomes);
     console.log('2018 Filtered Data for in/out/exit row: ', filteredFlow);
@@ -16,8 +17,6 @@ d3.json(url, function(data) {
     console.log('Full yearly data for page load yearly graphs: ', yearlyData);
     var t1 = performance.now();
     console.log("Call to get and log data took " + (t1 - t0) + " milliseconds.");
-
-    // NEW
 
     //Fill drop down with year options
     yearlyData.years.forEach(item => {
@@ -39,7 +38,7 @@ function unpackPage(responseData) {
     return yearly
 }
 
-// function to filter fowdata
+// function to filter flowdata
 //returns object with all filtered data needed for flowdata row for selected year
 function filterFlow(year, flowData) {
     function monthlyDictFilter(d) {
@@ -97,13 +96,68 @@ function buildPage(flow, outcomes, demo, yearlyData){
             'exitPH': Object.entries(yearlyData.monthlyOutcomes.exitPH).filter(monthlyDictFilter).map(d => d[1])
         }
     });
-    console.log('Data For Page Load Exit to PH Graph : ', monthlyOutcomesgraph)
-
+    console.log('Data For Page Load Exit to PH Graph : ', monthlyOutcomesgraph['2015'].percentPHmo)
+    
     //will use update functions to build responsive part of rows
     updateFlow(flow, '2018');
     updateOutcomes(outcomes, '2018');
     updateDemo(demo);
+    buildYearlyBar(yearlyData);
 }
+// Function to build yearly flow bar chart
+function buildYearlyBar(yearlyData) {
+    var years = yearlyData.years;
+    var data = [yearlyData.in, yearlyData.active, yearlyData.out]
+    var maxes = [d3.max(data[0]), d3.max(data[1]), d3.max(data[2])]
+    console.log(maxes);
+    var chartMargin = {
+        top:30,
+        right:30,
+        bottom:30,
+        left:30
+    };
+    var svgHeight = 250;
+    var svgWidth = 500;
+    var yearlybarchartWidth = svgWidth - chartMargin.left - chartMargin.right;
+    var yearlybarchartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
+    var yearlyflowSVG = d3.select('#yearly-bar')
+        .append('svg')
+        .attr("height", svgHeight)
+       .attr("width", svgWidth);
+    var yScale = d3.scaleBand()
+        .domain(years)
+        .range([0, yearlybarchartHeight]);
+  //   console.log(yScale.bandwidth());
+    var totalXScale = d3.scaleBand()
+        .domain(['in','active','out'])
+        .range([0, yearlybarchartWidth]);
+    var yearlybarchartGroup = yearlyflowSVG.append('g').attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+    var bottomAxis = d3.axisBottom(totalXScale);
+    var leftAxis = d3.axisLeft(yScale);
+    yearlybarchartGroup.append("g")
+      .call(leftAxis);
+    yearlybarchartGroup.append("g")
+    .attr("transform", `translate(0, ${yearlybarchartHeight})`)
+    .call(bottomAxis);
+    for (var i = 0; i < 3; i++) {
+        if (i === 0) {var classed = 'bar-in'}
+        else if (i === 1) {var classed = 'bar-act'}
+        else {var classed = 'bar-out'}
+      var XScale = d3.scaleLinear()
+          .domain([0, maxes[i]+1500])
+          .range([(i * totalXScale.bandwidth()), ((i + 1) * totalXScale.bandwidth())])
+      years.forEach((item, index) => {
+          yearlybarchartGroup
+              .append('rect')
+              .attr('class', classed)
+              .attr('x', (i * totalXScale.bandwidth()))
+              .attr('y', yScale(item))
+              .attr('width', XScale(data[i][index])/(i+1))
+              .attr('height',yScale.bandwidth()-10)
+              .attr('color','red')
+      });
+    }
+  }
 
 // function to update flow of in/out/exit row 
 // flow will be dictionary of all data needed for this row filtered to year
@@ -132,14 +186,15 @@ d3.select('container').html
         //     type: 'bar'
         // },
         title: {
-            text: 'Percent with permanent housing upon program exit'
+            text: 'Program enrollees with permanent housing upon program exit'
         },
+        // Turn off Highcharts.com label/link 
         credits: {
             enabled: false
         },
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         },
         yAxis: {
             title: {
@@ -149,24 +204,17 @@ d3.select('container').html
         series: [{
             name: '2018',
             data: [10,20,30,40,50,60,60,50,40,30,20,10],
-            // selected: true
-        }, {
+        }, 
+        {
             name: '2017',
             data: [40,20,30,10,50,60,40,50,40,50,20,60]
-        }],
-        // plotOptions: {
-        //     series: {
-        //         allowPointSelect: true,
-        //         marker: {
-        //             states: {
-        //                 select: {
-        //                     fillColor: 'red',
-        //                     lineWidth: 0
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        }
+        ],
+        // Moves location of series names to be as close as possible to line
+        legend: {
+            layout: 'proximate',
+            align: 'right'
+        },
     });
 ;
 

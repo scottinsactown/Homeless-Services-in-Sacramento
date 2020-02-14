@@ -12,3 +12,16 @@
 /* #left-card {
     margin-right: 25px;
 } */
+
+.bar-in {
+    fill:green;
+}
+.bar-out {
+    fill: red;
+}
+.bar-act {
+    fill: blue;
+}
+.domain {
+	display: none;
+}

@@ -258,6 +258,16 @@ function buildYearlyBar(yearlyData) {
               .attr('height',yScale.bandwidth()-10)
               
       });
+      var toolTip = d3.select("body").append('div').attr('class','tooltip')
+      var inGroup = d3.selectAll(".bar-in");
+      inGroup.on('mouseover', function(d,i) {
+          toolTip.style('display','block');
+          toolTip.html(`In: ${data[0][i]}`)
+          .style("left", d3.event.pageX + 10 + "px")
+        .style("top", d3.event.pageY + "px");
+      }).on('mouseout', function(d) {
+          toolTip.style('display','none')
+      });
     }
   }
 

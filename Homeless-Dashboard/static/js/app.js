@@ -126,6 +126,50 @@ function updateFlow(flow, year) {
 function updateOutcomes(outcomes, year) {
     // code for graphs
 
+d3.select('container').html
+    Highcharts.chart('container', {
+        // chart: {
+        //     type: 'bar'
+        // },
+        title: {
+            text: 'Percent with permanent housing upon program exit'
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        series: [{
+            name: '2018',
+            data: [10,20,30,40,50,60,60,50,40,30,20,10],
+            // selected: true
+        }, {
+            name: '2017',
+            data: [40,20,30,10,50,60,40,50,40,50,20,60]
+        }],
+        // plotOptions: {
+        //     series: {
+        //         allowPointSelect: true,
+        //         marker: {
+        //             states: {
+        //                 select: {
+        //                     fillColor: 'red',
+        //                     lineWidth: 0
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+    });
+;
+
     //code for cards
     d3.select('#outcome-row-card-header-percent').html
         (`<h6>In ${year}</h6>`);

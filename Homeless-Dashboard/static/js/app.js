@@ -29,7 +29,7 @@ d3.json(url, function(data) {
 function unpackPage(responseData) {
     var yearly = {}
     yearly['years'] = Object.entries(responseData.flow.yearly.active).map(d => d[0]);
-    yearly['in'] = Object.entries(responseData.flow.yearly.active).map(d => d[1]);
+    yearly['in'] = Object.entries(responseData.flow.yearly.in).map(d => d[1]);
     yearly['out'] = Object.entries(responseData.flow.yearly.out).map(d => d[1]);
     yearly['active'] = Object.entries(responseData.flow.yearly.active).map(d => d[1]);
     yearly['monthlyOutcomes'] = {'exitAll':responseData.outcomes.monthly.exit_all,
@@ -110,16 +110,19 @@ function buildYearlyBar(yearlyData) {
     var data = [yearlyData.in, yearlyData.active, yearlyData.out]
     var maxes = [d3.max(data[0]), d3.max(data[1]), d3.max(data[2])]
     console.log(maxes);
+    var windowWidth = window.innerWidth;
+    
     var chartMargin = {
         top:30,
         right:30,
-        bottom:30,
+        bottom:65,
         left:30
     };
-    var svgHeight = 250;
-    var svgWidth = 500;
+    var svgHeight = 300;
+    var svgWidth = windowWidth/3;
     var yearlybarchartWidth = svgWidth - chartMargin.left - chartMargin.right;
     var yearlybarchartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
+    d3.select('#yearly-bar').html('');
     var yearlyflowSVG = d3.select('#yearly-bar')
         .append('svg')
         .attr("height", svgHeight)
@@ -132,20 +135,29 @@ function buildYearlyBar(yearlyData) {
         .domain(['in','active','out'])
         .range([0, yearlybarchartWidth]);
     var yearlybarchartGroup = yearlyflowSVG.append('g').attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
-    var bottomAxis = d3.axisBottom(totalXScale);
+    var topAxis = d3.axisTop(totalXScale);
     var leftAxis = d3.axisLeft(yScale);
     yearlybarchartGroup.append("g")
       .call(leftAxis);
     yearlybarchartGroup.append("g")
-    .attr("transform", `translate(0, ${yearlybarchartHeight})`)
-    .call(bottomAxis);
+    .attr("transform", `translate(0, 0)`)
+    .call(topAxis);
     for (var i = 0; i < 3; i++) {
         if (i === 0) {var classed = 'bar-in'}
         else if (i === 1) {var classed = 'bar-act'}
         else {var classed = 'bar-out'}
       var XScale = d3.scaleLinear()
           .domain([0, maxes[i]+1500])
-          .range([(i * totalXScale.bandwidth()), ((i + 1) * totalXScale.bandwidth())])
+          .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
+      var bottomAxis = d3.axisBottom(XScale);
+          yearlybarchartGroup.append('g')
+            .attr('transform',`translate(0,${yearlybarchartHeight})`)
+            .call(bottomAxis)
+            .selectAll('text')
+            .style('text-anchor', 'end')
+            .attr('dx', "-.8em")
+            .attr('dy', '.15em')
+            .attr('transform', 'rotate(-65)');
       years.forEach((item, index) => {
           yearlybarchartGroup
               .append('rect')
@@ -154,7 +166,7 @@ function buildYearlyBar(yearlyData) {
               .attr('y', yScale(item))
               .attr('width', XScale(data[i][index])/(i+1))
               .attr('height',yScale.bandwidth()-10)
-              .attr('color','red')
+              
       });
     }
   }
@@ -164,7 +176,69 @@ function buildYearlyBar(yearlyData) {
 function updateFlow(flow, year) {
     // code for graphs 
     // will just be changing the css class to "active"/"inactive" for yearly chart
+    var months = flow.months;
+    var data = [flow.in, flow.active, flow.out]
+    var maxes = [d3.max(data[0]), d3.max(data[1]), d3.max(data[2])]
+    console.log(maxes);
+    var windowWidth = window.innerWidth;
+    var chartMargin = {
+        top:30,
+        right:30,
+        bottom:65,
+        left:60
+    }; 
+    var svgHeight = 400;
+    var svgWidth = windowWidth/2.5;
+    var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
+    var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
+    d3.select('#monthly-bar').html('');
+    var svg = d3.select('#monthly-bar')
+        .append('svg')
+        .attr("height", svgHeight)
+       .attr("width", svgWidth);
+    var yScale = d3.scaleBand()
+        .domain(months)
+        .range([0, chartHeight]);
+  //   console.log(yScale.bandwidth());
+    var totalXScale = d3.scaleBand()
+        .domain(['in','active','out'])
+        .range([0, chartWidth]);
+    var chartGroup = svg.append('g').attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+    var topAxis = d3.axisTop(totalXScale);
+    var leftAxis = d3.axisLeft(yScale);
+    chartGroup.append("g")
+      .call(leftAxis);
+    chartGroup.append("g")
+    .attr("transform", `translate(0, 0)`)
+    .call(topAxis);
+    for (var i = 0; i < 3; i++) {
+        if (i === 0) {var classed = 'bar-in'}
+        else if (i === 1) {var classed = 'bar-act'}
+        else {var classed = 'bar-out'}
+      var XScale = d3.scaleLinear()
+          .domain([0, maxes[i]+100])
+          .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
 
+      var bottomAxis = d3.axisBottom(XScale);
+      chartGroup.append('g')
+        .attr('transform',`translate(0,${chartHeight})`)
+        .call(bottomAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', "-.8em")
+        .attr('dy', '.15em')
+        .attr('transform', 'rotate(-65)');
+      months.forEach((item, index) => {
+          chartGroup
+              .append('rect')
+              .attr('class', classed)
+              .attr('x', (i * totalXScale.bandwidth()))
+              .attr('y', yScale(item))
+              .attr('width', XScale(data[i][index])/(i+1))
+              .attr('height',yScale.bandwidth()-10)
+              
+      });
+    }
 
     //code for cards
     d3.select('#flow-row-card-header').html(`<h4> ${year} Top 5 Programs</h4>By Number of Enrollments`);

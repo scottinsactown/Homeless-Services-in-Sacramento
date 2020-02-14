@@ -1,0 +1,14 @@
+/* Stlye for HMIS Dashboard */
+
+.number-highlight {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#middle-card {
+    margin-bottom: 10px;
+}
+
+#left-card {
+    margin-right: 25px;
+}

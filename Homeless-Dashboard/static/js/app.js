@@ -101,7 +101,7 @@ function buildPage(flow, outcomes, demo, yearlyData){
 
     //will use update functions to build responsive part of rows
     updateFlow(flow, '2018');
-    updateOutcomes(outcomes);
+    updateOutcomes(outcomes, '2018');
     updateDemo(demo);
 }
 
@@ -127,6 +127,15 @@ function updateOutcomes(outcomes, year) {
     // code for graphs
 
     //code for cards
+    d3.select('#outcome-row-card-header-percent').html
+        (`<h6>In ${year}</h6>`);
+        d3.select('#percent-ph-text').html(`<h1> ${outcomes.percentPHyear}%</h1>
+        <p>Had permanent housing upon program exit</p>`);   
+        
+    d3.select('#outcome-row-card-header-avg').html
+        (`<h6>In ${year}, it took an average of </h6>`);
+        d3.select('#avg-ph-text').html(`<h1> ${outcomes.avgTimeToPH} days</h1>
+        <p>To go from shelter/transitional housing to permanent housing</p>`);     
 }
 
 function updateDemo(demo,year) {

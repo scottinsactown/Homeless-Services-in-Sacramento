@@ -103,6 +103,92 @@ function buildPage(flow, outcomes, demo, yearlyData){
     updateOutcomes(outcomes, '2018');
     updateDemo(demo);
     buildYearlyBar(yearlyData);
+
+    // PH chart
+    d3.select('container').html
+    phChart = Highcharts.chart('container', {
+        // chart: {
+        //     type: 'bar'
+        // },
+        title: {
+            text: 'Program enrollees with permanent housing upon program exit'
+        },
+        // Turn off Highcharts.com label/link 
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                format: '{value}%',
+            }
+        },
+        series: [{
+            name: '2015',
+            data: [
+                // if want to add N per period as well format as:
+                // {y: series data,
+                // myData: outside data}
+            ]
+        }, 
+        {
+            name: '2016',
+            data: []
+        },
+        {
+            name: '2017',
+            data: []
+        },    {
+            name: '2018',
+            data: []
+        },    {
+            name: '2019',
+            data: []
+        },
+        ],
+        // Moves location of series names to be as close as possible to line
+        legend: {
+            layout: 'proximate',
+            align: 'right'
+        },
+        tooltip: {
+            // shared: true, //makes all data for that time point visible
+            // useHTML: true, //allows for more custom and complicated tooltip design
+            // headerFormat: '{point.key}<table>',
+            // pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
+            //     '<td style="text-align: right"><b>{point.y} EUR</b></td></tr>',
+            // footerFormat: '</table>',
+            // valueDecimals: 2
+            formatter: function () {
+                return this.x + " " +this.series.name + ": <b>" + this.y
+                // +"%<b><br> N = ?????"
+                // +'<br>The value for <b>' + this.x +
+                //     '</b> is <b>' + this.y + '</b>'+'<br>here is explanation';
+            }
+        },
+    });
+    let years = []
+    let keys = Object.keys(monthlyOutcomesgraph);
+    years.push(keys)
+
+    let phSeries = []
+    years[0].forEach(year => 
+        phSeries.push(monthlyOutcomesgraph[year].percentPHmo)
+        )
+
+    phChart.series.forEach(year => { 
+        let index = year.index
+        year.update({
+        data: phSeries[index]
+        }, true)
+        })
+
 }
 // Function to build yearly flow bar chart
 function buildYearlyBar(yearlyData) {

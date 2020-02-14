@@ -100,7 +100,7 @@ function buildPage(flow, outcomes, demo, yearlyData){
     console.log('Data For Page Load Exit to PH Graph : ', monthlyOutcomesgraph)
 
     //will use update functions to build responsive part of rows
-    updateFlow(flow);
+    updateFlow(flow, '2018');
     updateOutcomes(outcomes);
     updateDemo(demo);
 }
@@ -113,6 +113,12 @@ function updateFlow(flow, year) {
 
 
     //code for cards
+    d3.select('#flow-row-card-header').html(`<h4> ${year} Top 5 Programs</h4>By Number of Enrollments`);
+    d3.select('#flow-card-list').html('');
+    flow.top5.forEach(item => {
+        
+        d3.select('#flow-card-list').append('li').attr('class','list-group-item').html(`<b>${item[0]}:</b> ${item[1]}`)
+    });
 }
 
 //function to update exit to PH row

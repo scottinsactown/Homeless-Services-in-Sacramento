@@ -131,25 +131,25 @@ function buildPage(flow, outcomes, demo, yearlyData){
         },
         series: [{
             name: '2015',
-            data: [
-                // if want to add N per period as well format as:
-                // {y: series data,
-                // myData: outside data}
-            ]
+            // data: [
+            //     // if want to add N per period as well format as:
+            //     // {y: series data,
+            //     // myData: outside data}
+            // ]
         }, 
         {
             name: '2016',
-            data: []
+            // data: []
         },
         {
             name: '2017',
-            data: []
+            // data: []
         },    {
             name: '2018',
-            data: []
+            // data: []
         },    {
             name: '2019',
-            data: []
+            // data: []
         },
         ],
         // Moves location of series names to be as close as possible to line
@@ -159,7 +159,7 @@ function buildPage(flow, outcomes, demo, yearlyData){
         },
         tooltip: {
             // shared: true, //makes all data for that time point visible
-            // useHTML: true, //allows for more custom and complicated tooltip design
+            useHTML: true, //allows for more custom and complicated tooltip design
             // headerFormat: '{point.key}<table>',
             // pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
             //     '<td style="text-align: right"><b>{point.y} EUR</b></td></tr>',
@@ -167,9 +167,9 @@ function buildPage(flow, outcomes, demo, yearlyData){
             // valueDecimals: 2
             formatter: function () {
                 return this.x + " " +this.series.name + ": <b>" + this.y
-                // +"%<b><br> N = ?????"
-                // +'<br>The value for <b>' + this.x +
-                //     '</b> is <b>' + this.y + '</b>'+'<br>here is explanation';
+                +"%<b><br> N = " + this.point.myData
+                +'<br>The value for <b>' + this.x +
+                    '</b> is <b>' + this.y + '</b>'+'<br>here is explanation';
             }
         },
     });
@@ -178,9 +178,13 @@ function buildPage(flow, outcomes, demo, yearlyData){
     years.push(keys)
 
     let phSeries = []
-    years[0].forEach(year => 
-        phSeries.push(monthlyOutcomesgraph[year].percentPHmo)
-        )
+    years[0].forEach(year =>{ 
+        var toPush = []
+        monthlyOutcomesgraph[year].percentPHmo.forEach((item, index) => {
+            toPush.push({'y':item, 'myData':monthlyOutcomesgraph[year].exitAll[index]})
+        });
+        phSeries.push(toPush);
+    });
 
     phChart.series.forEach(year => { 
         let index = year.index

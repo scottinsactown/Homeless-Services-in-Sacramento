@@ -204,10 +204,10 @@ function buildYearlyBar(yearlyData) {
             type: 'column'
         },
         title: {
-            text: 'Yearly Total Program Flow'
+            text: 'Program Participation by Year'
         },
         subtitle: {
-            text: 'Some Subtext'
+            text: 'For any given period of time, participants enroll, remain active, or exit programs providing homeless related services'
         },
         xAxis: {
             categories: [
@@ -218,13 +218,19 @@ function buildYearlyBar(yearlyData) {
         yAxis: {
             min: 0,
             title: {
-                text: 'Num Enrollments'
+                text: '',
+                // rotation: 0,
+                // y: 0
             }
+        },
+        credits: {
+            enabled: false
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            pointFormat: '<tr><td style="color:"black";padding:0">{series.name}: </td>' +
+                '<td style="padding:0; text-align:right"><b>{point.y}</b></td></tr>',
+
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -271,27 +277,30 @@ function updateFlow(flow, year) {
             type: 'column'
         },
         title: {
-            text: 'Monthly'
+            text: `${year} Program Participation by Month`
         },
         subtitle: {
-            text: 'Some Subtext'
+            text: 'For a closer look at participant flow in and out, deselect the Active category in the legend'
         },
         xAxis: {
-            categories: [
-                
-            ],
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ],
             crosshair: true
+        },
+        credits: {
+            enabled: false
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Num Enrollments'
+                text: ''
             }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            pointFormat: '<tr><td style="color:"black";padding:0">{series.name}: </td>' + " " +
+                '<td style="padding:0; text-align: right"><b>{point.y}</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -320,7 +329,7 @@ function updateFlow(flow, year) {
         chartOptions.series[0].data.push(flow.in[index]);
         chartOptions.series[1].data.push(flow.active[index]);
         chartOptions.series[2].data.push(flow.out[index]);
-        chartOptions.xAxis.categories.push(month);
+        // chartOptions.xAxis.categories.push(month);
     });
 
     Highcharts.chart('monthly-bar',chartOptions);
@@ -345,14 +354,14 @@ function updateOutcomes(outcomes, year) {
 
     //code for cards
     d3.select('#outcome-row-card-header-percent').html
-        (`<h6>In ${year}</h6>`);
+        (`<h4>${year}</h4>`);
         d3.select('#percent-ph-text').html(`<h1 class ='h1-card'> ${outcomes.percentPHyear}%</h1>
-        <p>Had permanent housing upon program exit</p>`);   
+        <p>Of program enrollees had permanent housing upon program exit</p>`);   
         
     d3.select('#outcome-row-card-header-avg').html
-        (`<h6>In ${year}, it took an average of </h6>`);
+        (`<h4>${year}</h4>`);
         d3.select('#avg-ph-text').html(`<h1 class='h1-card'> ${outcomes.avgTimeToPH} days</h1>
-        <p>To go from shelter/transitional housing to permanent housing</p>`);     
+        <p>Average time from initial shelter/transitional housing to permanent housing</p>`);     
 }
 
 function updateDemo(demo,year) {

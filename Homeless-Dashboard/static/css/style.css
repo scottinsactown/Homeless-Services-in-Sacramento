@@ -5,13 +5,14 @@
     src: url("https://www.fontsquirrel.com/fonts/list/foundry/the-league-of-moveable-type#link");
   } */
 
-  html {
+  /* html {
     font-family: 'Acme', sans-serif;
-  }
+  } */
 
 .number-highlight {
-    margin-left: 10px;
-    margin-right: 10px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+    background-color: #90ed7dcb;
 }
 
 /* #middle-card {
@@ -67,15 +68,16 @@
 
 
   .jumbotron {
- color: rgb(48, 43, 43);
+    color: rgb(48, 43, 43);
+    text-shadow: 1px 1px 2px white;
     padding: 2rem 1rem;
     margin-bottom: 1rem;
     background-color: #e9ecef;
     border-radius: 0.3rem;
-  background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
   }
    
   .hd1{
@@ -93,21 +95,32 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    color: rgba(30,87,153,1);
+    color: black;
     /* padding: 2rem 1rem;
     margin-bottom: 1rem; */
     background-color: #e9ecef;
     border-radius: 0.3rem;
-  background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8' endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
- 
+    background-image: linear-gradient(white, rgba(30,87,153,1));
     text-align: center !important;
   }
 
   #middle-card {
       text-align: center;
+      /* fill-opacity: .5; */
   }
 
-  
+/* .card-header {
+    background-color: #90ed7d;
+} */
+
+  #selDataset {
+      font-size: 20px;
+  }
+
+.h1-card {
+    /* text-shadow: 1px 1px 2px blue; */
+
+}
+
+  colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
+        '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a']

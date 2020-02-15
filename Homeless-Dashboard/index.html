@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
 
     <title>HMIS Dashboard</title>
 </head>
 <body>
-    <h1>Place Holder</h1>
+
+  <div class="container-fluid" style="margin: 10px;">
+
+    <div class="jumbotron text-center">
+      <h1><strong>Homeless Management Information System</strong></h1>
+      <p></p>
+      <p></p> 
+    </div>
+
     <!-- just selector for now for whole page yearly -->
     <select id="selDataset" onchange="optionChanged(this.value)">
         <option id="selected" selected="2018">2018</option>
       </select>
     <div class="row" id='flow'>
-        <div class="col-md-4" id="yearly-bar"></div><div class="col-md-5" id="monthly-bar"></div><div class="col-md-3" id="flow-card">
+        <div class="col-md-4" id="yearly-bar"></div><div class="col-md-4" id="monthly-bar"></div><div class="col-md-4" id="flow-card">
             <!-- NEW STUFF HAVE TO MERGE IN WITH SCOTT -->
             <div class="card" style="width: 18rem;">
                 <div class="card-header" id="flow-row-card-header">
@@ -42,7 +51,7 @@
           </div>
         </div>
     <br>
-        <div class="card" id="left-card">
+        <div class="card" id="middle-card">
           <div class="card-header" id="outcome-row-card-header-avg">
           </div>
           <div class="number-highlight" id="avg-ph-text">
@@ -51,9 +60,28 @@
       </div>
 
     <div class="row" id='demo'></div>
+
+
+    
+<div class="footer">
+  <br>
+    <p>Graham Penrose & Scott Clark | Data Analytics | 2020</p>
+
+  </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <script type="text/javascript" src="static/js/app.js"></script>
     <script src = "https://code.highcharts.com/highcharts.js"></script>
 
+    </div>
+
 </body>
 </html>
+
+<!-- 
+<script src="https://d3js.org/d3.v5.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+<script type="text/javascript" src="static/js/app.js"></script>
+<script src = "https://code.highcharts.com/highcharts.js"></script> -->

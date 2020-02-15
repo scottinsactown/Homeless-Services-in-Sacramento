@@ -167,24 +167,24 @@ function buildPage(flow, outcomes, demo, yearlyData){
             // valueDecimals: 2
             formatter: function () {
                 return this.x + " " +this.series.name + ": <b>" + this.y
-                +"%<b><br> N = " + this.point.myData
-                +'<br>The value for <b>' + this.x +
-                    '</b> is <b>' + this.y + '</b>'+'<br>here is explanation';
+                +"%</b><br> " + this.point.myData2 + " out of " + this.point.myData 
+            + "<br>Exited to permanent housing";
             }
-        },
-    });
-    let years = []
-    let keys = Object.keys(monthlyOutcomesgraph);
-    years.push(keys)
-
-    let phSeries = []
-    years[0].forEach(year =>{ 
+            },
+            });
+        let years = []
+        let keys = Object.keys(monthlyOutcomesgraph);
+        years.push(keys)
+            
+        let phSeries = []
+            years[0].forEach(year =>{ 
         var toPush = []
-        monthlyOutcomesgraph[year].percentPHmo.forEach((item, index) => {
-            toPush.push({'y':item, 'myData':monthlyOutcomesgraph[year].exitAll[index]})
-        });
-        phSeries.push(toPush);
-    });
+            monthlyOutcomesgraph[year].percentPHmo.forEach((item, index) => {
+               toPush.push({'y':item, 'myData':monthlyOutcomesgraph[year].exitAll[index],
+                'myData2':monthlyOutcomesgraph[year].exitPH[index]})
+            });
+            phSeries.push(toPush);
+            });
 
     phChart.series.forEach(year => { 
         let index = year.index
@@ -233,9 +233,9 @@ function buildYearlyBar(yearlyData) {
     .attr("transform", `translate(0, 0)`)
     .call(topAxis);
     for (var i = 0; i < 3; i++) {
-        if (i === 0) {var classed = 'bar-in'}
-        else if (i === 1) {var classed = 'bar-act'}
-        else {var classed = 'bar-out'}
+        if (i === 0) {var classed = 'bar-in-yr'}
+        else if (i === 1) {var classed = 'bar-act-yr'}
+        else {var classed = 'bar-out-yr'}
       var XScale = d3.scaleLinear()
           .domain([0, maxes[i]+1500])
           .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
@@ -260,12 +260,14 @@ function buildYearlyBar(yearlyData) {
       });
       var toolTip = d3.select("body").append('div').attr('class','tooltip')
       var inGroup = d3.selectAll(".bar-in");
+      
       inGroup.on('mouseover', function(d,i) {
           toolTip.style('display','block');
           toolTip.html(`In: ${data[0][i]}`)
           .style("left", d3.event.pageX + 10 + "px")
         .style("top", d3.event.pageY + "px");
-      }).on('mouseout', function(d) {
+      })
+        .on('mouseout', function(d) {
           toolTip.style('display','none')
       });
     }
@@ -303,7 +305,7 @@ function updateFlow(flow, year) {
     var totalXScale = d3.scaleBand()
         .domain(['in','active','out'])
         .range([0, chartWidth]);
-    var chartGroup = svg.append('g').attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+    var chartGroup = svg.append('g').style("font","18px times").attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
     var topAxis = d3.axisTop(totalXScale);
     var leftAxis = d3.axisLeft(yScale);
     chartGroup.append("g")
@@ -312,9 +314,9 @@ function updateFlow(flow, year) {
     .attr("transform", `translate(0, 0)`)
     .call(topAxis);
     for (var i = 0; i < 3; i++) {
-        if (i === 0) {var classed = 'bar-in'}
-        else if (i === 1) {var classed = 'bar-act'}
-        else {var classed = 'bar-out'}
+        if (i === 0) {var classed = 'bar-in-mo'}
+        else if (i === 1) {var classed = 'bar-act-mo'}
+        else {var classed = 'bar-out-mo'}
       var XScale = d3.scaleLinear()
           .domain([0, maxes[i]+100])
           .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
@@ -354,53 +356,17 @@ function updateFlow(flow, year) {
 function updateOutcomes(outcomes, year) {
     // code for graphs
 
-d3.select('container').html
-    Highcharts.chart('container', {
-        // chart: {
-        //     type: 'bar'
-        // },
-        title: {
-            text: 'Program enrollees with permanent housing upon program exit'
-        },
-        // Turn off Highcharts.com label/link 
-        credits: {
-            enabled: false
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        },
-        yAxis: {
-            title: {
-                text: ''
-            }
-        },
-        series: [{
-            name: '2018',
-            data: [10,20,30,40,50,60,60,50,40,30,20,10],
-        }, 
-        {
-            name: '2017',
-            data: [40,20,30,10,50,60,40,50,40,50,20,60]
-        }
-        ],
-        // Moves location of series names to be as close as possible to line
-        legend: {
-            layout: 'proximate',
-            align: 'right'
-        },
-    });
-;
+// 
 
     //code for cards
     d3.select('#outcome-row-card-header-percent').html
         (`<h6>In ${year}</h6>`);
-        d3.select('#percent-ph-text').html(`<h1> ${outcomes.percentPHyear}%</h1>
+        d3.select('#percent-ph-text').html(`<h1 class ='h1-card'> ${outcomes.percentPHyear}%</h1>
         <p>Had permanent housing upon program exit</p>`);   
         
     d3.select('#outcome-row-card-header-avg').html
         (`<h6>In ${year}, it took an average of </h6>`);
-        d3.select('#avg-ph-text').html(`<h1> ${outcomes.avgTimeToPH} days</h1>
+        d3.select('#avg-ph-text').html(`<h1 class='h1-card'> ${outcomes.avgTimeToPH} days</h1>
         <p>To go from shelter/transitional housing to permanent housing</p>`);     
 }
 

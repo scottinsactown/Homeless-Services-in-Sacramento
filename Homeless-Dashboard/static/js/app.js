@@ -198,149 +198,134 @@ function buildPage(flow, outcomes, demo, yearlyData){
 function buildYearlyBar(yearlyData) {
     var years = yearlyData.years;
     var data = [yearlyData.in, yearlyData.active, yearlyData.out]
-    var maxes = [d3.max(data[0]), d3.max(data[1]), d3.max(data[2])]
-    console.log(maxes);
-    var windowWidth = window.innerWidth;
-    
-    var chartMargin = {
-        top:30,
-        right:30,
-        bottom:65,
-        left:30
-    };
-    var svgHeight = 300;
-    var svgWidth = windowWidth/3;
-    var yearlybarchartWidth = svgWidth - chartMargin.left - chartMargin.right;
-    var yearlybarchartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
-    d3.select('#yearly-bar').html('');
-    var yearlyflowSVG = d3.select('#yearly-bar')
-        .append('svg')
-        .attr("height", svgHeight)
-       .attr("width", svgWidth);
-    var yScale = d3.scaleBand()
-        .domain(years)
-        .range([0, yearlybarchartHeight]);
-  //   console.log(yScale.bandwidth());
-    var totalXScale = d3.scaleBand()
-        .domain(['in','active','out'])
-        .range([0, yearlybarchartWidth]);
-    var yearlybarchartGroup = yearlyflowSVG.append('g').attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
-    var topAxis = d3.axisTop(totalXScale);
-    var leftAxis = d3.axisLeft(yScale);
-    yearlybarchartGroup.append("g")
-      .call(leftAxis);
-    yearlybarchartGroup.append("g")
-    .attr("transform", `translate(0, 0)`)
-    .call(topAxis);
-    for (var i = 0; i < 3; i++) {
-        if (i === 0) {var classed = 'bar-in-yr'}
-        else if (i === 1) {var classed = 'bar-act-yr'}
-        else {var classed = 'bar-out-yr'}
-      var XScale = d3.scaleLinear()
-          .domain([0, maxes[i]+1500])
-          .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
-      var bottomAxis = d3.axisBottom(XScale);
-          yearlybarchartGroup.append('g')
-            .attr('transform',`translate(0,${yearlybarchartHeight})`)
-            .call(bottomAxis)
-            .selectAll('text')
-            .style('text-anchor', 'end')
-            .attr('dx', "-.8em")
-            .attr('dy', '.15em')
-            .attr('transform', 'rotate(-65)');
-      years.forEach((item, index) => {
-          yearlybarchartGroup
-              .append('rect')
-              .attr('class', classed)
-              .attr('x', (i * totalXScale.bandwidth()))
-              .attr('y', yScale(item))
-              .attr('width', XScale(data[i][index])/(i+1))
-              .attr('height',yScale.bandwidth()-10)
-              
-      });
-      var toolTip = d3.select("body").append('div').attr('class','tooltip')
-      var inGroup = d3.selectAll(".bar-in");
-      
-      inGroup.on('mouseover', function(d,i) {
-          toolTip.style('display','block');
-          toolTip.html(`In: ${data[0][i]}`)
-          .style("left", d3.event.pageX + 10 + "px")
-        .style("top", d3.event.pageY + "px");
-      })
-        .on('mouseout', function(d) {
-          toolTip.style('display','none')
-      });
-    }
-  }
 
+    var chartOptions =  {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Yearly Total Program Flow'
+        },
+        subtitle: {
+            text: 'Some Subtext'
+        },
+        xAxis: {
+            categories: [
+                
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Num Enrollments'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'In',
+            data: []
+    
+        }, {
+            name: 'Active',
+            data: []
+    
+        }, {
+            name: 'Out',
+            data: []
+    
+        }]
+    };
+    years.forEach((year,index) => {
+        chartOptions.series[0].data.push(yearlyData.in[index]);
+        chartOptions.series[1].data.push(yearlyData.active[index]);
+        chartOptions.series[2].data.push(yearlyData.out[index]);
+        chartOptions.xAxis.categories.push(year);
+    });
+
+    Highcharts.chart('yearly-bar',chartOptions);
+    
+  }
 // function to update flow of in/out/exit row 
 // flow will be dictionary of all data needed for this row filtered to year
 function updateFlow(flow, year) {
     // code for graphs 
     // will just be changing the css class to "active"/"inactive" for yearly chart
     var months = flow.months;
-    var data = [flow.in, flow.active, flow.out]
-    var maxes = [d3.max(data[0]), d3.max(data[1]), d3.max(data[2])]
-    console.log(maxes);
-    var windowWidth = window.innerWidth;
-    var chartMargin = {
-        top:30,
-        right:30,
-        bottom:65,
-        left:60
-    }; 
-    var svgHeight = 400;
-    var svgWidth = windowWidth/2.5;
-    var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
-    var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
-    d3.select('#monthly-bar').html('');
-    var svg = d3.select('#monthly-bar')
-        .append('svg')
-        .attr("height", svgHeight)
-       .attr("width", svgWidth);
-    var yScale = d3.scaleBand()
-        .domain(months)
-        .range([0, chartHeight]);
-  //   console.log(yScale.bandwidth());
-    var totalXScale = d3.scaleBand()
-        .domain(['in','active','out'])
-        .range([0, chartWidth]);
-    var chartGroup = svg.append('g').style("font","18px times").attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
-    var topAxis = d3.axisTop(totalXScale);
-    var leftAxis = d3.axisLeft(yScale);
-    chartGroup.append("g")
-      .call(leftAxis);
-    chartGroup.append("g")
-    .attr("transform", `translate(0, 0)`)
-    .call(topAxis);
-    for (var i = 0; i < 3; i++) {
-        if (i === 0) {var classed = 'bar-in-mo'}
-        else if (i === 1) {var classed = 'bar-act-mo'}
-        else {var classed = 'bar-out-mo'}
-      var XScale = d3.scaleLinear()
-          .domain([0, maxes[i]+100])
-          .range([(i * totalXScale.bandwidth())+5, ((i + 1) * totalXScale.bandwidth())-5])
+    console.log(months);
+    var chartOptions =  {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly'
+        },
+        subtitle: {
+            text: 'Some Subtext'
+        },
+        xAxis: {
+            categories: [
+                
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Num Enrollments'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'In',
+            data: []
+    
+        }, {
+            name: 'Active',
+            data: []
+    
+        }, {
+            name: 'Out',
+            data: []
+    
+        }]
+    };
+    months.forEach((month,index) => {
+        chartOptions.series[0].data.push(flow.in[index]);
+        chartOptions.series[1].data.push(flow.active[index]);
+        chartOptions.series[2].data.push(flow.out[index]);
+        chartOptions.xAxis.categories.push(month);
+    });
 
-      var bottomAxis = d3.axisBottom(XScale);
-      chartGroup.append('g')
-        .attr('transform',`translate(0,${chartHeight})`)
-        .call(bottomAxis)
-        .selectAll('text')
-        .style('text-anchor', 'end')
-        .attr('dx', "-.8em")
-        .attr('dy', '.15em')
-        .attr('transform', 'rotate(-65)');
-      months.forEach((item, index) => {
-          chartGroup
-              .append('rect')
-              .attr('class', classed)
-              .attr('x', (i * totalXScale.bandwidth()))
-              .attr('y', yScale(item))
-              .attr('width', XScale(data[i][index])/(i+1))
-              .attr('height',yScale.bandwidth()-10)
-              
-      });
-    }
+    Highcharts.chart('monthly-bar',chartOptions);
+    
+  
 
     //code for cards
     d3.select('#flow-row-card-header').html(`<h4> ${year} Top 5 Programs</h4>By Number of Enrollments`);

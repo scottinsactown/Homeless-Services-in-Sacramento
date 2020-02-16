@@ -371,6 +371,9 @@ function updateDemo(demo,year) {
             minColor: '#ffffff',
             maxColor: '#f28f43'
         },
+        credits: {
+            enabled: false
+        },
         series: [{
             type: 'treemap',
             layoutAlgorithm: 'sliceAndDice',

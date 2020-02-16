@@ -448,8 +448,70 @@ function updateDemo(demo,year) {
     Highcharts.chart('gender',chartOptions);
 
     // still need code for boxplot 
-    var age = demo.age[0];
-   
+    var age = demo.age[0][0];
+    console.log('FIRST');
+    //have to convert data type 
+    age.forEach((item,index) => {
+        age[index] = parseFloat(item);
+    })
+    console.log(age);
+    var ageOptions = {
+
+        chart: {
+            type: 'boxplot'
+        },
+        credits: {
+            enabled: false
+        },
+    
+        title: {
+            text: `${year} Age Distribution`
+        },
+    
+        legend: {
+            enabled: false
+        },
+    
+        xAxis: {
+            categories: [`${year}`],
+            title: {
+                text: ''
+            }
+        },
+    
+        yAxis: {
+            title: {
+                text: 'Age'
+            }
+        },
+        plotOptions: {
+            boxplot: {
+                fillColor: '#91e8e1',
+                lineWidth: 1,
+                lineColor: '#2b908f',
+                medianColor: '#2b908f',
+                medianWidth: 3,
+                stemColor: '#2b908f',
+                stemDashStyle: 'dash',
+                stemWidth: 1,
+                whiskerColor: '#2b908f',
+                whiskerLength: '20%',
+                whiskerWidth: 3
+            }
+        },
+        series: [{
+            name: 'Age',
+            data: [
+                age
+            ],
+            tooltip: {
+                headerFormat: '<em>{point.key}</em><br/>'
+            }
+        }]
+    
+    };
+
+    Highcharts.chart('age',ageOptions);
     // code for cards
 }
 

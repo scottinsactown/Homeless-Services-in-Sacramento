@@ -341,7 +341,7 @@ function updateFlow(flow, year) {
     d3.select('#flow-card-list').html('');
     flow.top5.forEach(item => {
         
-        d3.select('#flow-card-list').append('li').attr('class','list-group-item').html(`<b>${item[0]}:</b> ${item[1]}`)
+        d3.select('#flow-card-list').append('p').attr('class','list-group-item').html(`<b>${item[0]}:</b> ${item[1]}`)
     });
 }
 

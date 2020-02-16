@@ -5,82 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
     <title>HMIS Dashboard</title>
 </head>
 <body>
 
-  <div class="container-fluid" style="margin: 10px;">
-
     <div class="jumbotron text-center">
-      <h1><strong>Homeless Management Information System</strong></h1>
+      <h1 class="jumbo-title"><strong>Sacramento Homeless Management Information System</strong></h1>
       <p></p>
-      <p></p> 
+      <div class="row" id = 'intro'>
+        <div class = "col-md-1" id="dropdown"> 
+      <div class="well">
+        <h6>Select year</h6>
+      <select id="selDataset" onchange="optionChanged(this.value)">
+          <option id="selected" selected="2018">2018</option>
+        </select>
+      </div>
+      </div> 
+      <!-- <div class ="col-md-1" id ="spacer"></div> -->
+      <div class = "col-md-11" id="intro"><p style = "
+        margin-left: 25px;
+        margin-right: 20px;">
+        A Homeless Management Information Systems (HMIS) is a database used to
+        confidentially aggregate data on homeless populations served across the United States.
+        Local homeless assistance providers use HMIS to coordinate care, manage their operations, 
+        and better serve their clients. The most recent data for Sacramento County was made available 
+        via a public records request and is shared here to provde a glimpse into the demand for 
+        homlessness related services, and how many who enroll for services secure permanent housing. 
+        Raw data is housed by <a href="https://github.com/code4sac/sacramento-county-homeless-hmis-data/tree/master/data">Code for Sacramento</a>.
+      </p>
+        </div> 
+      </div>
     </div>
 
-    <!-- just selector for now for whole page yearly -->
-    <select id="selDataset" onchange="optionChanged(this.value)">
-        <option id="selected" selected="2018">2018</option>
-      </select>
-    <div class="row" id='flow'>
-        <div class="col-md-4" id="yearly-bar"></div><div class="col-md-4" id="monthly-bar"></div><div class="col-md-4" id="flow-card">
-            <!-- NEW STUFF HAVE TO MERGE IN WITH SCOTT -->
-            <div class="card" style="width: 18rem;">
-                <div class="card-header" id="flow-row-card-header">
-                  Featured
+      <!-- <div><br></div> -->
+      <div class="container-fluid">
+
+        <div class ="container-fluid">
+          <div class="row" id ="section-row">
+            <h5 class="section-title"><strong>VOLUME</strong></h5>
+          </div>
+          <br>
+          <div class="row" id='flow'>
+              <div class="col-md-4" id="yearly-bar"></div> <br>
+              <div class="col-md-3" id="flow-card"> 
+                <div class="card" >
+                    <div class="number-highlight" id="flow-row-card-header">
+                      Featured
+                    </div>
+                    <ul class="list-group list-group-flush" id="flow-card-list">
+                    </ul>
+                  </div>
+            </div><br>
+              <div class="col-md-5" id="monthly-bar"></div><br>
+            </div>
+        </div>
+
+        <div class ="container-fluid"> 
+          <div class="row" id="section-row">
+            <h5 class="section-title"><strong>OUTCOMES</strong></h5>
+          </div>
+          <br>
+          <div class="row" id='ph'>
+            <div class="col-md-8" id="years-bar">
+              <div id = "container" style = margin: 0 auto"></div>
+            </div>
+      <br>
+            <div class="col-md-4" id="percent-ph">
+              <div class="card" id="middle-card">
+                <div class="card-header" id="outcome-row-card-header-percent">
                 </div>
-                <ul class="list-group list-group-flush" id="flow-card-list">
-                </ul>
+                <div class="number-highlight" id="percent-ph-text">
+                </div>
               </div>
-
-
-        </div>
-    </div>
-<br>
-    <div class="row" id='ph'>
-      <div class="col-md-8" id="years-bar">
-        <div id = "container" style = margin: 0 auto"></div>
-      </div>
-
-      <div class="col-md-4" id="percent-ph">
-        <div class="card" id="middle-card">
-          <div class="card-header" id="outcome-row-card-header-percent">
-          </div>
-          <div class="number-highlight" id="percent-ph-text">
+          <br>
+              <div class="card" id="middle-card">
+                <div class="card-header" id="outcome-row-card-header-avg">
+                </div>
+                <div class="number-highlight" id="avg-ph-text">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-    <br>
-        <div class="card" id="middle-card">
-          <div class="card-header" id="outcome-row-card-header-avg">
-          </div>
-          <div class="number-highlight" id="avg-ph-text">
-          </div>
-        </div>
-      </div>
-<br>
-    <div class="row" id='demo'></div>
 
-<br>
-    
+        <div class ="container-fluid">
+          <div class="row" id ="section-row">
+            <h5 class="section-title"><strong>DEMOGRAPHICS</strong></h5>
+          </div>
+            <div class="row" id='demo'>
+
+              <!-- Graham insert here -->
+
+            </div>
+        <br>
+          </div>
+      </div> 
+
 <div class="footer">
   <br>
-    <p>Graham Penrose & Scott Clark | Data Analytics | 2020</p>
+    <p>Graham Penrose & Scott Clark  |  2020</p><br>
 
   </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <script type="text/javascript" src="static/js/app.js"></script>
-    <script src = "https://code.highcharts.com/highcharts.js"></script>
-
-    </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 </body>
 </html>
-
-<!-- 
-<script src="https://d3js.org/d3.v5.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-<script type="text/javascript" src="static/js/app.js"></script>
-<script src = "https://code.highcharts.com/highcharts.js"></script> -->

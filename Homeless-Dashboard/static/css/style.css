@@ -8,39 +8,15 @@
   /* html {
     font-family: 'Acme', sans-serif;
   } */
+/* .container-fluid {
+margin-left: 25px;
+margin-right: 25px;
+} */
 
 .number-highlight {
     /* margin-left: 10px;
     margin-right: 10px; */
-    background-color: #90ed7dcb;
-}
-
-/* #middle-card {
-    margin-bottom: 10px;
-} */
-
-/* #left-card {
-    margin-right: 25px;
-} */
-
-.bar-in-yr {
-    fill:lightgreen;
-}
-.bar-out-yr {
-    fill: darkgreen;
-}
-.bar-act-yr {
-    fill:mediumseagreen;
-}
-
-.bar-in-mo {
-    fill:lightskyblue;
-}
-.bar-out-mo {
-    fill: darkblue;
-}
-.bar-act-mo {
-    fill:mediumblue;
+    background-color: lightgray;
 }
 
 .domain {
@@ -66,18 +42,25 @@
       color: white;
   } */
 
+  .jumbo-title {
+          text-shadow: 1px 1px 50px white;
+          font-family: 'Montserrat', sans-serif;
+  }
 
   .jumbotron {
     color: rgb(48, 43, 43);
-    text-shadow: 1px 1px 2px white;
-    padding: 2rem 1rem;
-    margin-bottom: 1rem;
+    /* text-shadow: 1px 1px 2px white; */
+    padding: 1rem .5rem;
+    padding-bottom: 8px;
+    margin-bottom: 0rem;
     background-color: #e9ecef;
     border-radius: 0.3rem;
-    background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+    background-image: linear-gradient( #2f7ed8, white);
+
+    /* background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); FF3.6-15 */
+    /* background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); Chrome10-25,Safari5.1-6 */
+    /* background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); IE6-9 */
   }
    
   .hd1{
@@ -96,12 +79,12 @@
     bottom: 0;
     width: 100%;
     color: black;
-    /* padding: 2rem 1rem;
-    margin-bottom: 1rem; */
+    /* padding: 2rem 1rem; */
+    margin-bottom: 1rem;
     background-color: #e9ecef;
     border-radius: 0.3rem;
-    background-image: linear-gradient(white, rgba(30,87,153,1));
-    text-align: center !important;
+    background-image: linear-gradient(white,#2f7ed8);
+    text-align: center;
   }
 
   #middle-card {
@@ -114,13 +97,58 @@
 } */
 
   #selDataset {
-      font-size: 20px;
+      font-size: 25px;
   }
 
-.h1-card {
-    /* text-shadow: 1px 1px 2px blue; */
+/* .h1-card {
+    text-shadow: 1px 1px 2px blue;
+} */
 
+#flow-card {
+        /* display: flex; */
+        text-align: center;
+        justify-content: center;
+        /* justify-self: center; */
+        /* flex-direction: row; */
+        /* display: block; */
+        /* margin-left: auto;
+        margin-right: auto; */
+        margin-bottom: 10px;
+      }
+
+/* #flow-row-card-header {
+    background-color: "#2f7ed8";
+} */
+
+/* .card-header {
+    background-color: #0d233a;
+
+} */
+
+/* highcharts base colors for reference */
+.colortest {
+color: #2f7ed8, #0d233a, #8bbc21, #910000, #1aadce,
+        #492970, #f28f43, #77a1e5, #c42525, #a6c96a, #ffffff
 }
 
-  colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-        '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
+/* #flow {
+    background-color: #77a1e5 ;
+} */
+
+#section-row {
+    background-color: #a6c96a;
+    /* border-radius: 10%; */
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 10px;
+}
+.section-title {
+    padding-left: 2%;
+    padding-bottom: 5PX;
+    padding-top: 5PX;
+}
+
+.container-fluid {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

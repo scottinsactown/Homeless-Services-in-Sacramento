@@ -101,7 +101,7 @@ function buildPage(flow, outcomes, demo, yearlyData){
     //will use update functions to build responsive part of rows
     updateFlow(flow, '2018');
     updateOutcomes(outcomes, '2018');
-    updateDemo(demo);
+    updateDemo(demo,'2018');
     buildYearlyBar(yearlyData);
 
     // PH chart
@@ -366,7 +366,90 @@ function updateOutcomes(outcomes, year) {
 
 function updateDemo(demo,year) {
     //code for graphs
+    var racechartOptions = {
+        colorAxis: {
+            minColor: '#ffffff',
+            maxColor: '#f28f43'
+        },
+        series: [{
+            type: 'treemap',
+            layoutAlgorithm: 'sliceAndDice',
+            data: []
+        }],
+        title: {
+            text: `${year} Race`
+        }
+    };
 
+    var race = demo.race[0];
+    race.forEach(item => {
+        racechartOptions.series[0].data.push(
+            {name: item[0],
+            value: item[1],
+            colorValue: item[1]}
+        )
+    });
+    Highcharts.chart('race', racechartOptions);
+    
+
+    var gender = demo.gender[0];
+    var chartOptions =  {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: `${year} Gender`
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+        ],
+            crosshair: true
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:"black";padding:0">{series.name}: </td>' + " " +
+                '<td style="padding:0; text-align: right"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                },
+                showInLegend: false
+            }
+        },
+        series: [{
+            name: 'Number of Program Enrollees',
+            data: []
+    
+        }]
+    };
+    gender.reverse().forEach((item) => {
+        chartOptions.series[0].data.push(item[1]);
+        chartOptions.xAxis.categories.push(item[0]);
+        // chartOptions.xAxis.categories.push(month);
+    });
+
+    Highcharts.chart('gender',chartOptions);
+
+    // still need code for boxplot 
+    var age = demo.age[0];
+   
     // code for cards
 }
 

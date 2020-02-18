@@ -4,32 +4,32 @@
 
 Execution Instructions
 -
-  1) Create a local PostgreSQL database named "HMIS_db"
-  2) Open DB_Load Jupyter Notebook, and add in your `username` and `password` in the second cell
-  3) Run all cells in DB_Load Jupyter notebook
-  4) From the terminal, navigate to the "Flask-App" folder and run app.py by typing: `python app.py`
-  5) Open a new terminal, navigate to the "Homeless-Dashboard" folder, and have python set up a local server by typing `python -m http.server`
-  6) Open your browser then go to the url `http://localhost:8000/`
+  1) Create a local PostgreSQL database named "HMIS_db".
+  2) Open DB_Load Jupyter Notebook, and add in your `username` and `password` in the second cell.
+  3) Run all cells in DB_Load Jupyter notebook.
+  4) From the terminal, navigate to the "Flask-App" folder and run app.py by typing: `python app.py`.
+  5) Open a new terminal, navigate to the "Homeless-Dashboard" folder, and have python set up a local server by typing `python -m http.server`.
+  6) Open your browser then go to the url `http://localhost:8000/`.
   7) Enjoy exploring the volume of program participants, the success rate of these programs, and the demographics of the individuals being served by the program!
 
 Contents
 -
 #### Data (folder):
 - DB_Load:
-    - Jupyter Notebook that executes raw SQL to create PostgreSQL database tables
-    - Formats then loads csv files into database 
+    - Jupyter Notebook that executes raw SQL to create PostgreSQL database tables.
+    - Formats then loads csv files into database .
     - Creates multiple views and new aggregate tables in database.  This uses the benefits of a relational database to extract valuable bits of information from the raw data.
-    - Uses Pandas to manipulate some tables and do some calculations on the data before writing back into database 
-- CSV files containing all raw data that is used in this project
+    - Uses Pandas to manipulate some tables and do some calculations on the data before writing back into database.
+- CSV files containing all raw data that is used in this project.
     - Data source can be found [here](https://github.com/code4sac/sacramento-county-homeless-hmis-data/tree/master/data)
 #### Flask-App (folder):
 - app.py:
-    - Python file using Flask to create a local API that returns the aggregate tables as a JSON object 
+    - Python file using Flask to create a local API that returns the aggregate tables as a JSON object. 
 #### Homeless-Dashboard (folder):
-- index.html -> html file containing structure of dashboard 
+- index.html -> html file containing structure of dashboard. 
 - static:
-    - JS -> app.js -> a JavaScript file that hits Flask api and dynamically builds the dashboard
-    - CSS -> style.css -> a Cascading Style Sheet that adds style and formatting to the dashboard
+    - JS -> app.js -> a JavaScript file that hits Flask api and dynamically builds the dashboard.
+    - CSS -> style.css -> a Cascading Style Sheet that adds style and formatting to the dashboard.
 
 Authors
 -

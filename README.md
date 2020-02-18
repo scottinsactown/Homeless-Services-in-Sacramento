@@ -1,6 +1,6 @@
 # Sacramento Homeless Management Information System
 ##### A project to provide a user friendly and interactive dashboard for Sacramento County's Homeless Management Information System.
-A homeless management information system (HMIS) is a database used to confidentially aggregate data on homeless populations served across the United States. This repository contains the raw Sacramento County HMIS data, a jupyter notebook that loads the data into a PostgreSQl database, a flask API that then serves the data from the database, and finally a web based dashboard using HTML, CSS, and JavaScript to provide a way to interact with the data. The dashboard allows users to draw conclusions from the aggrigations visualized and calculated statistics displayed on the dashboard.  
+###### A homeless management information system (HMIS) is a database used to confidentially aggregate data on homeless populations served across the United States. This repository contains the raw Sacramento County HMIS data, a jupyter notebook that loads the data into a PostgreSQl database, a flask API that then serves the data from the database, and finally a web based dashboard using HTML, CSS, and JavaScript to provide a way to interact with the data. The dashboard allows users to draw conclusions from the aggrigations visualized and calculated statistics displayed on the dashboard.  
 -
 Execution Instructions
 -

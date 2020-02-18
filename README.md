@@ -5,10 +5,10 @@
 Execution Instructions
 -
   1) Create a local PostgreSQL database named "HMIS_db"
-  2) Open DB_Load Jupyter Notebook, and add in your username and password in the second cell.
+  2) Open DB_Load Jupyter Notebook, and add in your `username` and `password` in the second cell
   3) Run all cells in DB_Load Jupyter notebook
-  4) From the terminal, navigate to the "Flask-App" folder and run app.py by typing: "python app.py"
-  5) Open a new terminal, navigate to the "Homeless-Dashboard" folder, and have python set up a local server by typing "python -m http.server"
+  4) From the terminal, navigate to the "Flask-App" folder and run app.py by typing: `python app.py`
+  5) Open a new terminal, navigate to the "Homeless-Dashboard" folder, and have python set up a local server by typing `python -m http.server`
   6) Open your browser then go to the url `http://localhost:8000/`
   7) Enjoy exploring the volume of program participants, the success rate of these programs, and the demographics of the individuals being served by the program!
 

@@ -26,9 +26,9 @@
       <!-- <div class ="col-md-1" id ="spacer"></div> -->
       <div class = "col-md-11" id="intro"><p style = "
         margin-left: 25px;
-        margin-right: 20px;">
-        A Homeless Management Information Systems (HMIS) is a database used to
-        confidentially aggregate data on homeless populations served across the United States.
+        margin-right: 20px; text-align: left;">
+        A Homeless Management Information System (HMIS) is a database used to
+        aggregate data on homeless populations served across the United States.
         Local homeless assistance providers use HMIS to coordinate care, manage their operations, 
         and better serve their clients. The most recent data for Sacramento County was made available 
         via a public records request and is shared here to provde a glimpse into the demand for 
@@ -49,17 +49,31 @@
           <br>
           <div class="row" id='flow'>
               <div class="col-md-4" id="yearly-bar"></div>
+              
               <div class="col-md-3" id="flow-card"> 
-                <div class="card" >
+
+                <!-- <div class="card" >
                     <div class="number-highlight" id="flow-row-card-header">
                       Featured
                     </div>
                     <ul class="list-group list-group-flush" id="flow-card-list">
                     </ul>
+                  </div> -->
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="numer-highlight" id="flow-row-card-header"></h5>
+                      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                      <p class="list-group list-group-flush" id="flow-card-list"></p>
+                      <!-- <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a> -->
+                    </div>
                   </div>
-            </div>
-              <div class="col-md-5" id="monthly-bar"></div>
-            </div>
+                  <br>
+
+              </div>
+            <div class="col-md-5" id="monthly-bar"></div>
+          </div>
         </div>
  
         <div class ="container-fluid"> 
@@ -86,6 +100,7 @@
                 <div class="number-highlight" id="avg-ph-text">
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
@@ -94,6 +109,7 @@
           <div class="row" id ="section-row">
             <h5 class="section-title"><strong>DEMOGRAPHICS</strong></h5>
           </div>
+          <br>
             <div class="row" id='demo'>
               <div class="col-md-4" id="race"></div><div class="col-md-4" id="gender"></div><div class="col-md-4" id="age"></div>
               
@@ -105,7 +121,7 @@
 
 <div class="footer" id="footer">
   <br>
-    <p id="footer">Graham Penrose & Scott Clark  |  2020</p><br>
+    <h6 id="footer">Graham Penrose & Scott Clark | 2020</h6><br>
 
   </div>
 
@@ -118,5 +134,6 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/annotations.js"></script>
 </body>
 </html>

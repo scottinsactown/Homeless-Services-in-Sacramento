@@ -1,17 +1,4 @@
 /* Stlye for HMIS Dashboard */
-
-/* @font-face {
-    font-family: 'Acme', sans-serif;
-    src: url("https://www.fontsquirrel.com/fonts/list/foundry/the-league-of-moveable-type#link");
-  } */
-
-  /* html {
-    font-family: 'Acme', sans-serif;
-  } */
-/* .container-fluid {
-margin-left: 25px;
-margin-right: 25px;
-} */
  
 .number-highlight {
     /* margin-left: 10px;
@@ -48,15 +35,15 @@ margin-right: 25px;
   }
 
   .jumbotron {
-    color: rgb(48, 43, 43);
+    color: white;
     /* text-shadow: 1px 1px 2px white; */
     padding: 1rem .5rem;
     padding-bottom: 8px;
     margin-bottom: 0rem;
-    background-color: #e9ecef;
+    background-color: black;
     border-radius: 0.3rem;
-    background-image: linear-gradient( #2f7ed8, white);
-
+    text-align: left;
+    /* background-image: linear-gradient( #2f7ed8, white); */
     /* background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); FF3.6-15 */
     /* background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); Chrome10-25,Safari5.1-6 */
     /* background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -67,44 +54,45 @@ margin-right: 25px;
       color: black;
   }
 
-  /* .card-header {
-    color: white;  
-    background-color: rgba(30,87,153,1)
-  } */
-
+.card {
+  background-color: lightgrey;
+  margin: 10px;
+}
 
   .footer {
     position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
-    color: black;
+    color: white;
     /* padding: 2rem 1rem; */
     margin-bottom: 1rem;
-    background-color: #e9ecef;
+    background-color: black;
     border-radius: 0.3rem;
-    background-image: linear-gradient(white,#2f7ed8);
+    /* background-image: linear-gradient(white,#2f7ed8); */
     text-align: center;
   }
+
+.list-group {
+  text-align: center;
+}
 
   #middle-card {
       text-align: center;
       /* fill-opacity: .5; */
+      padding-right: 5 px;
+      padding-left: 5 px;
   }
 
-/* .card-header {
-    background-color: #90ed7d;
-} */
-
-  #selDataset {
+#selDataset {
       font-size: 25px;
   }
 
-/* .h1-card {
-    text-shadow: 1px 1px 2px blue;
-} */
+.h1-card {
+  padding-top: 10px;
+}
 
-#flow-card {
+#flow-card-center {
         /* display: flex; */
         text-align: center;
         justify-content: center;
@@ -116,14 +104,13 @@ margin-right: 25px;
         margin-bottom: 10px;
       }
 
-/* #flow-row-card-header {
-    background-color: "#2f7ed8";
-} */
+#flow-row-card-header {
+    text-align: center;
+}
 
-/* .card-header {
-    background-color: #0d233a;
-
-} */
+.card-header {
+padding: 0px;
+}
 
 /* highcharts base colors for reference */
 .colortest {
@@ -138,9 +125,6 @@ color: #2f7ed8, #0d233a, #8bbc21, #910000, #1aadce,
   color: #7cb5ec, #434348, #90ed7d, #f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1;
 }
 
-/* #flow {
-    background-color: #77a1e5 ;
-} */
 
 #section-row {
     background-color: #a6c96a;
@@ -151,8 +135,7 @@ color: #2f7ed8, #0d233a, #8bbc21, #910000, #1aadce,
 }
 .section-title {
     padding-left: 2%;
-    padding-bottom: 5PX;
-    padding-top: 5PX;
+
 }
 
 .container-fluid {
@@ -164,3 +147,7 @@ color: #2f7ed8, #0d233a, #8bbc21, #910000, #1aadce,
   margin-bottom: 0px;
 }
 
+#dropdown {
+  padding-right: 25px;
+  padding-right: 0px;
+}

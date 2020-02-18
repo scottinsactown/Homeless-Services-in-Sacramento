@@ -207,8 +207,23 @@ function buildYearlyBar(yearlyData) {
             text: 'Program Participation by Year'
         },
         subtitle: {
-            text: 'For any given period of time, participants enroll, remain active, or exit programs providing homeless related services'
+            text: '2019 data available through August.<br>Chart shows full year projection for 2019.'
         },
+        // annotations: [{
+        //     labels: [{
+        //         point: {
+        //             // xAxis: 0,
+        //             // yAxis: 0,
+        //             // x:300,
+        //             // y:50,
+
+        //         },
+        //         text: 'Projected'
+            // }],
+        //     labelOptions: {
+        //         x: 10, y: -10
+        //     }
+        // }],
         xAxis: {
             categories: [
                 
@@ -365,7 +380,7 @@ function updateOutcomes(outcomes, year) {
 }
 
 function updateDemo(demo,year) {
-    //code for graphs
+//Race tree map
     var racechartOptions = {
         colorAxis: {
             minColor: '#ffffff',
@@ -394,9 +409,12 @@ function updateDemo(demo,year) {
     });
     Highcharts.chart('race', racechartOptions);
     
-
+// Gender hbar chart
     var gender = demo.gender[0];
     var chartOptions =  {
+        tooltip: { 
+            enabled: false 
+        },
         chart: {
             type: 'bar'
         },
@@ -420,14 +438,14 @@ function updateDemo(demo,year) {
                 text: ''
             }
         },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:"black";padding:0">{series.name}: </td>' + " " +
-                '<td style="padding:0; text-align: right"><b>{point.y}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
+        // tooltip: {
+        //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        //     pointFormat: '<tr><td style="color:"black";padding:0">{series.name}: </td>' + " " +
+        //         '<td style="padding:0; text-align: right"><b>{point.y}</b></td></tr>',
+        //     footerFormat: '</table>',
+        //     shared: true,
+        //     useHTML: true
+        // },
         plotOptions: {
             bar: {
                 dataLabels: {
@@ -450,7 +468,7 @@ function updateDemo(demo,year) {
 
     Highcharts.chart('gender',chartOptions);
 
-    // still need code for boxplot 
+// Age box plot 
     var age = demo.age[0][0];
     console.log('FIRST');
     //have to convert data type 
@@ -484,8 +502,14 @@ function updateDemo(demo,year) {
     
         yAxis: {
             title: {
-                text: 'Age'
-            }
+                text: 'Age',
+                rotation: 0,
+                // offset: 0,
+                // x: -50
+            },
+            max:100,
+            min: 0,
+
         },
         plotOptions: {
             boxplot: {
@@ -508,7 +532,7 @@ function updateDemo(demo,year) {
                 age
             ],
             tooltip: {
-                headerFormat: '<em>{point.key}</em><br/>'
+                headerFormat: ''
             }
         }]
     

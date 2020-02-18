@@ -15,19 +15,19 @@ Execution Instructions
 Contents
 -
 #### Data (folder):
-  - DB_Load:
+- DB_Load:
     - Jupyter Notebook that executes raw SQL to create PostgreSQL database tables
     - Formats then loads csv files into database 
     - Creates multiple views and new aggregate tables in database.  This uses the benefits of a relational database to extract valuable bits of information from the raw data.
     - Uses Pandas to manipulate some tables and do some calculations on the data before writing back into database 
-  - CSV files containing all raw data that is used in this project
+- CSV files containing all raw data that is used in this project
     - Data source can be found [here](https://github.com/code4sac/sacramento-county-homeless-hmis-data/tree/master/data)
 #### Flask-App (folder):
-  - app.py:
+- app.py:
     - Python file using Flask to create a local API that returns the aggregate tables as a JSON object 
 #### Homeless-Dashboard (folder):
-  - index.html -> html file containing structure of dashboard 
-  - static:
+- index.html -> html file containing structure of dashboard 
+- static:
     - JS -> app.js -> a JavaScript file that hits Flask api and dynamically builds the dashboard
     - CSS -> style.css -> a Cascading Style Sheet that adds style and formatting to the dashboard
 

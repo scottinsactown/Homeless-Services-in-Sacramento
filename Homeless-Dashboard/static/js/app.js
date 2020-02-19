@@ -50,6 +50,13 @@ function filterFlow(year, flowData) {
     filtered['out'] = Object.entries(flowData.monthly.out).filter(monthlyDictFilter).map(d => d[1]);
     filtered['active'] = Object.entries(flowData.monthly.active).filter(monthlyDictFilter).map(d => d[1]);
     filtered['top5'] = flowData.top_5[year]
+    // limit predicted monthly values
+    if (year === '2019'){
+        filtered.in.length = 8;
+        filtered.out.length = 8;
+        filtered.active.length = 8;
+    }
+    
     return filtered 
 }
 // function to filter ph data
@@ -178,16 +185,19 @@ function buildPage(flow, outcomes, demo, yearlyData){
             
         let phSeries = []
             years[0].forEach(year =>{ 
-        var toPush = []
+            var toPush = []
             monthlyOutcomesgraph[year].percentPHmo.forEach((item, index) => {
                toPush.push({'y':item, 'myData':monthlyOutcomesgraph[year].exitAll[index],
                 'myData2':monthlyOutcomesgraph[year].exitPH[index]})
             });
             phSeries.push(toPush);
             });
+        // Limit predicted monthly values 
+        phSeries[4].length = 8;
 
     phChart.series.forEach(year => { 
         let index = year.index
+
         year.update({
         data: phSeries[index]
         }, true)

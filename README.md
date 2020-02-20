@@ -1,13 +1,13 @@
 # Sacramento Homeless Management Information System
 ##### A project to provide a user friendly and interactive dashboard with data from Sacramento County's Homeless Management Information System
 ![top_of_dash](https://github.com/scottinsactown/Homeless-Services-in-Sacramento/blob/master/images/HMIS_dash_top.JPG)
-###### A homeless management information system (HMIS) is a database used to confidentially aggregate data on homeless populations served across the United States. This repository contains the raw Sacramento County HMIS data, a Jupyter Notebook that loads the data into a PostgreSQl database, a flask API that then serves the data from the database, and finally a web based dashboard using HTML, CSS, and JavaScript. The dashboard includes interactive charts that allows users to explore homeless services program volumes and outcomes, and participant demographics.
+###### A homeless management information system (HMIS) is a database used to aggregate data on homeless populations served across the United States. This repository contains the source Sacramento County HMIS data, a Jupyter Notebook that loads the data into a PostgreSQL database, a flask API that then serves the data from the database, and finally a web based dashboard using HTML, CSS, and JavaScript. The dashboard includes interactive charts that allows users to explore homeless services program volumes, outcomes, and participant demographics.
 ![mid_dash](https://github.com/scottinsactown/Homeless-Services-in-Sacramento/blob/master/images/HMIS_dash_middle.JPG)
 
 Execution Instructions
 -
   1) Create a local PostgreSQL database named "HMIS_db".
-  2) Open DB_Load Jupyter Notebook and add in your `username` and `password` in the second cell.
+  2) Open DB_Load Jupyter Notebook and add in your PostgreSQL `username` and `password` in the second cell.
   3) Run all cells in DB_Load Jupyter notebook.
   4) From the terminal, navigate to the "Flask-App" folder and run app.py by typing: `python app.py`.
   5) Open a new terminal, navigate to the "Homeless-Dashboard" folder, and have python set up a local server by typing `python -m http.server`.
@@ -31,7 +31,7 @@ Contents
 #### Homeless-Dashboard (folder):
 - index.html -> html file containing structure of dashboard. 
 - static:
-    - JS -> app.js -> a JavaScript file that hits Flask API and dynamically builds the dashboard.
+    - JS -> app.js -> a JavaScript file that hits Flask API and dynamically builds the dashboard utilizing the Highcharts library.
     - CSS -> style.css -> a Cascading Style Sheet that adds style and formatting to the dashboard.
 
 Authors

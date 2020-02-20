@@ -318,6 +318,7 @@ function updateFlow(flow, year) {
         },
         yAxis: {
             min: 0,
+            softMax: 10000,
             title: {
                 text: ''
             }
@@ -512,10 +513,14 @@ function updateDemo(demo,year) {
     
         yAxis: {
             title: {
-                text: 'Age',
+                text: 'Age  ',
                 rotation: 0,
                 // offset: 0,
-                // x: -50
+                // x: -50,
+                y: -15,
+                labels: {
+                    align: 'left',
+                }
             },
             max:100,
             min: 0,
